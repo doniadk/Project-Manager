@@ -2,12 +2,8 @@
 
 [![PHP Version](https://img.shields.io/badge/PHP-8.1+-blue.svg)](https://php.net)
 [![CakePHP](https://img.shields.io/badge/CakePHP-5.2.x-orange.svg)](https://cakephp.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://github.com/your-username/gestion-projet/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/gestion-projet/actions)
 
-A comprehensive web-based project management application built with CakePHP 5.x, designed to manage projects, personnel, tasks, and assignments efficiently. This application supports user authentication, role-based access control, and data export functionalities.
-
-![Application Screenshot](https://via.placeholder.com/800x400?text=Application+Screenshot) <!-- Replace with actual screenshot URL -->
+A comprehensive web-based project management application built with CakePHP 5.2.6, designed to manage projects, personnel, tasks, and assignments efficiently. This application supports user authentication, role-based access control, and data export functionalities.
 
 ## ✨ Features
 
@@ -71,7 +67,7 @@ A comprehensive web-based project management application built with CakePHP 5.x,
 1. **Clone the repository**:
 
     ```bash
-    git clone https://github.com/your-username/gestion-projet.git
+    git clone https://github.com/doniadk/gestion-projet.git
     cd gestion-projet
     ```
 
@@ -95,7 +91,7 @@ A comprehensive web-based project management application built with CakePHP 5.x,
 
 5. **Start the development server**:
     ```bash
-    bin/cake server -p 8765
+    bin/cake server
     ```
     Visit `http://localhost:8765` to access the application.
 
@@ -126,21 +122,6 @@ The application uses the following main tables:
 
 Run migrations to set up the schema.
 
-## 🚀 Deployment
-
-### On Render
-
-1. Push your code to a Git repository (GitHub/GitLab).
-2. Create a PostgreSQL database service on Render.
-3. Create a Web Service:
-    - Runtime: PHP
-    - Build Command: `composer install --no-dev --optimize-autoloader`
-    - Start Command: `apache2-foreground`
-    - Environment Variables: Set `DEBUG=false`, `SECURITY_SALT`, `DATABASE_URL`, etc.
-    - Post-Deploy Command: `./bin/post-deploy.sh` (create this script to run migrations)
-4. Deploy and monitor logs.
-
-For detailed Render deployment steps, refer to the deployment guide.
 
 ### Other Platforms
 
@@ -149,36 +130,12 @@ For detailed Render deployment steps, refer to the deployment guide.
 
 ## 🛠️ Technologies Used
 
--   **Framework**: CakePHP 5.2.x
+-   **Framework**: CakePHP 5.2.6
 -   **Frontend**: HTML, CSS (Milligram), JavaScript, Font Awesome
 -   **Backend**: PHP 8.1+
 -   **Database**: MySQL/PostgreSQL with CakePHP ORM
 -   **Libraries**: Dompdf (PDF generation), MobileDetect
 -   **Tools**: Composer, PHPUnit (testing), PHPCS/PHPStan (code quality)
-
-## 🧪 Testing
-
-Run tests with:
-
-```bash
-composer test
-```
-
-## 🤝 Contributing
-
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`).
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
-4. Push to the branch (`git push origin feature/AmazingFeature`).
-5. Open a Pull Request.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Support
-
-For issues or questions, please open an issue on the [Git repository](https://github.com/your-username/gestion-projet/issues).
 
 ## 🙏 Acknowledgments
 
