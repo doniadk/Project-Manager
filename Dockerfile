@@ -33,8 +33,8 @@ RUN if [ -f bin/post-deploy.sh ]; then chmod +x bin/post-deploy.sh; fi
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Install PHP dependencies without running post-install scripts
-RUN composer install --no-dev --optimize-autoloader --no-scripts
+# Install PHP dependencies including dev packages (DebugKit, etc.)
+RUN composer install --optimize-autoloader
 
 # Create tmp and logs directories and set permissions
 RUN mkdir -p tmp logs \
