@@ -1,7 +1,7 @@
 # Base image: PHP 8.2 with Apache
 FROM php:8.2-apache
 
-# Install system dependencies for PHP extensions
+# Install system dependencies + PHP extensions
 RUN apt-get update && apt-get install -y \
         libonig-dev \
         libzip-dev \
@@ -11,9 +11,12 @@ RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libicu-dev \
         default-mysql-client \
+        libxml2-dev \
     && docker-php-ext-configure mbstring \
-    && docker-php-ext-install mbstring pdo pdo_mysql intl \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install mbstring pdo pdo_mysql intl zip opcache \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 
 # Enable Apache mod_rewrite (needed for CakePHP routing)
 RUN a2enmod rewrite
