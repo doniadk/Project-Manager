@@ -1,8 +1,19 @@
-# Use the official PHP image with Apache
+# Use PHP with Apache
 FROM php:8.2-apache
 
-# Install required PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql mbstring
+# Install dependencies for PHP extensions
+RUN apt-get update && apt-get install -y \
+        libonig-dev \
+        libzip-dev \
+        unzip \
+        libpng-dev \
+        libjpeg-dev \
+        libfreetype6-dev \
+        libpq-dev \
+        default-mysql-client \
+    && docker-php-ext-configure mbstring \
+    && docker-php-ext-install mbstring pdo pdo_mysql \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Enable Apache mod_rewrite (needed for CakePHP routing)
 RUN a2enmod rewrite
@@ -13,11 +24,11 @@ WORKDIR /var/www/html
 # Copy project files
 COPY . .
 
-# Install composer
+# Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader
 
-# Set file permissions (adjust as needed)
+# Set permissions for tmp/logs
 RUN chown -R www-data:www-data /var/www/html/tmp /var/www/html/logs
 
 # Expose port 80
