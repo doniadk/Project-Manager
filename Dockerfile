@@ -35,11 +35,11 @@ RUN mkdir -p tmp logs \
     && chown -R www-data:www-data tmp logs \
     && chmod -R 775 tmp logs
 
-# Make post-deploy script executable (do NOT run it during build)
+# Make post-deploy script executable
 RUN if [ -f bin/post-deploy.sh ]; then chmod +x bin/post-deploy.sh; fi
 
 # Expose Apache port
 EXPOSE 80
 
-# Start Apache
-CMD ["apache2-foreground"]
+# Run migrations on container start, then launch Apache
+CMD ["bash", "-c", "if [ -f bin/post-deploy.sh ]; then ./bin/post-deploy.sh; fi && apache2-foreground"]
