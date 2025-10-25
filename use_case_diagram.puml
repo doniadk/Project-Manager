@@ -1,0 +1,59 @@
+@startuml Use Case Diagram for Project Management App
+
+actor "User" as User
+
+rectangle "Authentication" {
+    User --> (Login)
+    User --> (Logout)
+}
+
+rectangle "User Management" {
+    User --> (View Users)
+    User --> (Add User)
+    User --> (Edit User)
+    User --> (Delete User)
+}
+
+rectangle "Personnel Management" {
+    User --> (View Personnels)
+    User --> (Add Personnel)
+    User --> (Edit Personnel)
+    User --> (Delete Personnel)
+}
+
+rectangle "Function Management" {
+    User --> (View Fonctions)
+    User --> (Add Fonction)
+    User --> (Edit Fonction)
+    User --> (Delete Fonction)
+}
+
+rectangle "Project Management" {
+    User --> (View Projets)
+    User --> (Add Projet)
+    User --> (Edit Projet)
+    User --> (Delete Projet)
+}
+
+rectangle "Project Assignment Management" {
+    User --> (View GestionProjets)
+    User --> (Add GestionProjet)
+    User --> (Edit GestionProjet)
+    User --> (Delete GestionProjet)
+}
+
+rectangle "Task Management" {
+    User --> (View Taches)
+    User --> (Add Tach)
+    User --> (Edit Tach)
+    User --> (Delete Tach)
+}
+
+rectangle "Dashboard" {
+    User --> (View Main Page)
+    User --> (Search Projects by Date)
+    User --> (Export to Excel)
+    User --> (Export to PDF)
+}
+
+@enduml
