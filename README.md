@@ -1,7 +1,7 @@
 # Gestion Projet - Project Management Application
 
 [![PHP Version](https://img.shields.io/badge/PHP-8.1+-blue.svg)](https://php.net)
-[![CakePHP](https://img.shields.io/badge/CakePHP-5.2.x-orange.svg)](https://cakephp.org)
+[![CakePHP](https://img.shields.io/badge/CakePHP-5.2.6-orange.svg)](https://cakephp.org)
 
 A comprehensive web-based project management application built with CakePHP 5.2.6, designed to manage projects, personnel, tasks, and assignments efficiently. This application supports user authentication, role-based access control, and data export functionalities.
 
