@@ -24,6 +24,12 @@ WORKDIR /var/www/html
 # Copy project files
 COPY . .
 
+# Make CakePHP CLI executable
+RUN chmod +x bin/cake
+
+# Make post-deploy script executable
+RUN if [ -f bin/post-deploy.sh ]; then chmod +x bin/post-deploy.sh; fi
+
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
@@ -34,9 +40,6 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 RUN mkdir -p tmp logs \
     && chown -R www-data:www-data tmp logs \
     && chmod -R 775 tmp logs
-
-# Make post-deploy script executable
-RUN if [ -f bin/post-deploy.sh ]; then chmod +x bin/post-deploy.sh; fi
 
 # Expose Apache port
 EXPOSE 80
