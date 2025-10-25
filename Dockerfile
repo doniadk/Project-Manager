@@ -1,7 +1,10 @@
-# Base image: PHP 8.2 with Apache
-FROM php:8.2-apache
+# Use PHP 8.3 with Apache
+FROM php:8.3-apache
 
-# Install system dependencies + PHP extensions
+# Set working directory
+WORKDIR /var/www/html
+
+# Install system dependencies required for PHP extensions
 RUN apt-get update && apt-get install -y \
         libonig-dev \
         libzip-dev \
@@ -17,35 +20,33 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install mbstring pdo pdo_mysql intl zip opcache \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-
-# Enable Apache mod_rewrite (needed for CakePHP routing)
+# Enable Apache mod_rewrite
 RUN a2enmod rewrite
-
-# Set working directory
-WORKDIR /var/www/html
 
 # Copy project files
 COPY . .
 
-# Make CakePHP CLI executable
-RUN chmod +x bin/cake
-
-# Make post-deploy script executable
-RUN if [ -f bin/post-deploy.sh ]; then chmod +x bin/post-deploy.sh; fi
-
-# Install Composer
+# Copy composer from official image
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Install PHP dependencies including dev packages (DebugKit, etc.)
-RUN composer install --optimize-autoloader
+# Install PHP dependencies (production only)
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
-# Create tmp and logs directories and set permissions
-RUN mkdir -p tmp logs \
-    && chown -R www-data:www-data tmp logs \
-    && chmod -R 775 tmp logs
+# Create tmp and logs directories if they don't exist
+RUN mkdir -p tmp logs
 
-# Expose Apache port
+# Set permissions for tmp and logs
+RUN chown -R www-data:www-data tmp logs
+
+# Optional: Run post-deploy migrations if the script exists
+RUN if [ -f bin/post-deploy.sh ]; then \
+        chmod +x bin/post-deploy.sh && bin/post-deploy.sh; \
+    else \
+        echo "No post-deploy.sh found. Skipping migrations."; \
+    fi
+
+# Expose port 80
 EXPOSE 80
 
-# Run migrations on container start, then launch Apache
-CMD ["bash", "-c", "if [ -f bin/post-deploy.sh ]; then ./bin/post-deploy.sh; fi && apache2-foreground"]
+# Start Apache
+CMD ["apache2-foreground"]
